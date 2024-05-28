@@ -1,0 +1,362 @@
+{
+	"info": {
+		"_postman_id": "205289ce-cea2-47e5-ad87-b4eaa140a39d",
+		"name": "DeliveryService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29519347"
+	},
+	"item": [
+		{
+			"name": "cargo",
+			"item": [
+				{
+					"name": "Get Cargo by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/api/cargos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"cargos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cargo with params",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/api/cargos/_list?page=1&size=10&status=PENDING&type=CAR",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"cargos",
+								"_list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "status",
+									"value": "IN_TRANSIT",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "DELIVERED",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "PENDING"
+								},
+								{
+									"key": "type",
+									"value": "CAR"
+								},
+								{
+									"key": "type",
+									"value": "TRUCK",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "SHIP",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cargo Excel Report (Enter URL to browser)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/api/cargos/_report?status=IN_TRANSIT&type=CAR&type=TRUCK",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"cargos",
+								"_report"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "IN_TRANSIT"
+								},
+								{
+									"key": "status",
+									"value": "DELIVERED",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "PENDING",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "CAR"
+								},
+								{
+									"key": "type",
+									"value": "TRUCK"
+								},
+								{
+									"key": "type",
+									"value": "SHIP",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cargo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/api/cargos/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"cargos",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Cargo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vehicleNumber\": \"NYEQPT769\",\r\n    \"description\": \"Cargo 12\",\r\n    \"weight\": 159.99,\r\n    \"status\": \"DELIVERED\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/api/cargos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"cargos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload JSON",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": [
+										"/D:/Dimon/ProfItsoft/json_data_set/cargo_data_1.json",
+										"/D:/Dimon/ProfItsoft/json_data_set/cargo_data_2.json",
+										"/D:/Dimon/ProfItsoft/json_data_set/cargo_data_3.json",
+										"/D:/Dimon/ProfItsoft/json_data_set/cargo_data_4.json",
+										"/D:/Dimon/ProfItsoft/json_data_set/cargo_data_5.json",
+										"/D:/Dimon/ProfItsoft/json_data_set/cargo_data_6.json",
+										"/D:/Dimon/ProfItsoft/json_data_set/cargo_data_7.json",
+										"/D:/Dimon/ProfItsoft/json_data_set/cargo_data_8.json",
+										"/D:/Dimon/ProfItsoft/json_data_set/cargo_data_9.json",
+										"/D:/Dimon/ProfItsoft/json_data_set/cargo_data_10.json"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8088/api/cargos/file/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"cargos",
+								"file",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Cargo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vehicleNumber\": \"JKL012\",\r\n    \"description\": \"Updated New\",\r\n    \"weight\": 350.0,\r\n    \"status\": \"DELIVERED\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/api/cargos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"cargos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "vehicle",
+			"item": [
+				{
+					"name": "Create Vehicle",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"SHIP\",\r\n    \"vehicleNumber\": \"ABC120\",\r\n    \"routeFrom\": \"Origin\",\r\n    \"routeTo\": \"Destination\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/api/vehicles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"vehicles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vehicle",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"TRAIN\",\r\n    \"vehicleNumber\": \"ABC120\",\r\n    \"routeFrom\": \"Origin\",\r\n    \"routeTo\": \"Destination\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/api/vehicles/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"vehicles",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Vehicles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/api/vehicles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"vehicles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

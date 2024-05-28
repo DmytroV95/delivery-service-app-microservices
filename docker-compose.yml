@@ -1,0 +1,80 @@
+version: '3.5'
+
+services:
+  nodejs-service-mongodb:
+    image: mongo:5.0.14
+    restart: unless-stopped
+    environment:
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_DB: ${MONGO_DB}
+    env_file: .env
+    ports:
+      - '27018:27017'
+    healthcheck:
+      test: [ "CMD-SHELL", "mongo --eval 'db.adminCommand(\"ping\")'" ]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - ./docker/data/mongo/db:/data/db
+    networks:
+      - app-network
+
+  nodejs-service-app:
+    depends_on:
+      - nodejs-service-mongodb
+    restart: on-failure
+    image: nodejs-service-app
+    build:
+      context: ./app/delivery-service-app-nodejs
+    ports:
+      - '8081:8081'
+    environment:
+      NODEJS_DATASOURCE_URL: ${NODEJS_DATASOURCE_URL}
+      NODEJS_DATASOURCE_USERNAME: ${NODEJS_DATASOURCE_USERNAME}
+      NODEJS_DATASOURCE_PASSWORD: ${NODEJS_DATASOURCE_PASSWORD}
+    env_file: .env
+    networks:
+      - app-network
+
+  spring-service-postgresdb:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    env_file: .env
+    ports:
+      - "5434:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - ./docker/data/postgres/db:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  delivery-service-spring-service:
+    depends_on:
+      - spring-service-postgresdb
+    restart: on-failure
+    image: spring-service-app
+    build:
+      context: ./app/delivery-service-spring-app
+    ports:
+      - "8088:8080"
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_HIBERNATE_DIALECT: ${SPRING_HIBERNATE_DIALECT}
+    env_file: .env
+    networks:
+      - app-network
+
+networks:
+  app-network:

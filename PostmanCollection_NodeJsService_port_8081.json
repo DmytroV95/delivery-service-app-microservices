@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "6fb986e1-f532-48f1-8031-8e2ec55e1c0f",
+		"name": "DeliveryServiceNodeJs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29519347"
+	},
+	"item": [
+		{
+			"name": "Create cargo movement list",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cargoId\": 786,\r\n  \"movementDate\": \"2024-05-02\",\r\n  \"fromLocation\": \"Warehouse A\",\r\n  \"toLocation\": \"Warehouse B\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/cargo-movement",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"cargo-movement"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cargo Movement list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/cargo-movement?cargoId=224&size=10&from=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"cargo-movement"
+					],
+					"query": [
+						{
+							"key": "cargoId",
+							"value": "224"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "from",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cargo Movement Counts Per Cargo Id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cargosIds\": [\"1022\", \"172\", \"137\", \"135\", \"110\", \"222\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/cargo-movement/_counts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"cargo-movement",
+						"_counts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
